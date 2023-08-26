@@ -13,3 +13,16 @@ An Express.js weather app that fetches real-time weather temperature for multipl
    ```sh
    git clone https://github.com/your-username/weather-app.git
 
+2. Install dependencies:
+   npm install
+
+3.Usage
+Start the server:
+
+node server.js
+
+Access the app by opening a web browser and navigating to http://localhost:3000.
+
+Enter city names in the text box and click "Get Weather" to see real-time weather results.
+
+
