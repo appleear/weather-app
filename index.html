@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+</head>
+<body>
+  <h1>Weather App</h1>
+  <form id="weatherForm">
+    <input type="text" id="cityInput" placeholder="Enter city names">
+    <button type="submit">Get Weather</button>
+  </form>
+  <div id="weatherResults"></div>
+
+  <script>
+    const weatherForm = document.getElementById('weatherForm');
+    const cityInput = document.getElementById('cityInput');
+    const weatherResults = document.getElementById('weatherResults');
+
+    weatherForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const cities = cityInput.value.split(',').map(city => city.trim());
+
+      const response = await fetch('/getWeather', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cities })
+      });
+
+      const data = await response.json();
+
+      let resultHtml = '<h2>Weather Results</h2>';
+      resultHtml += '<ul>';
+      for (const city in data.weather) {
+        resultHtml += `<li>${city}: ${data.weather[city]}</li>`;
+      }
+      resultHtml += '</ul>';
+
+      weatherResults.innerHTML = resultHtml;
+    });
+  </script>
+</body>
+</html>
